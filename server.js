@@ -17,6 +17,16 @@ const DEFAULT_KEYS = Array(10).fill("white");
 // Store initial keyboard state in Redis
 redis.set(KEYS_STATE, JSON.stringify(DEFAULT_KEYS));
 
+/**
+ * Using Socket.io for real-time updates
+ * to maintain client-server connections.
+ * This eliminates the need for Apache AJAX polling
+ * and ensures instant bidirectional communication.
+ *
+ * Instead of MySQL, using Redis as an in-memory store 
+ * due to time constraints of learning and setting up MySQL.
+ * Redis provides fast read/write operations, making it suitable for this use case.
+ */
 io.on("connection", async (socket) => {
 	const userId = socket.handshake.query.userId;
 	console.log(`User ${userId} connected with socket ID: ${socket.id}`);
